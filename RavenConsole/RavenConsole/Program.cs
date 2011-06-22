@@ -48,7 +48,7 @@ namespace RavenConsole
 
                 foreach (var command in commands)
                 {
-                    command.WriteCommandHelp(Console.Out, "Transfer.exe");
+                    command.WriteCommandHelp(Console.Out, "RavenConsole.exe");
                 }
 
                 Console.WriteLine();

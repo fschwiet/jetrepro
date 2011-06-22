@@ -28,10 +28,15 @@ namespace RavenConsole
 
         public override OptionSet GetOptionSet()
         {
-            return new OptionSet
-            {
-                {"wait", "Wait until replicationg catches up", v => WaitForFinish = v != null}
-            };
+            var optionSet = new OptionSet();
+
+            optionSet.Add("w|wait", "Wait until replicationg catches up", v => WaitForFinish = v != null);
+            return optionSet;
+        }
+
+        public override string GetHelpText()
+        {
+            return "[options] <source> <target>";
         }
 
         public override void HandleArgs(string[] remainingArgs)
@@ -141,12 +146,6 @@ namespace RavenConsole
 
                 } while (true);
             }
-        }
-
-
-        public override string  RemainingArgsHelpText
-        {
-            get { return "<source> <target>"; }
         }
     }
 }
