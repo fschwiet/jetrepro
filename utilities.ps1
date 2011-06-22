@@ -36,20 +36,25 @@ function RemoveIISMembersOf($appPoolName) {
 
 function CreateIISAppPool($appPoolName) {
 
-    $appPool = new-item "IIS:\AppPools\$appPoolName"
+    $expectedAppPoolPath = "IIS:\AppPools\$appPoolName";
 
-    $appPool.processModel.pingingEnabled = "False"
-    $appPool.managedPipelineMode = "Integrated"
-    $appPool.managedRuntimeVersion = "v4.0"
-    $appPool | set-item
+    if (-not (test-path $expectedAppPoolPath)) {
+		$appPool = new-item $expectedAppPoolPath
+		$appPool.processModel.pingingEnabled = "False"
+		$appPool.managedPipelineMode = "Integrated"
+		$appPool.managedRuntimeVersion = "v4.0"
+		$appPool | set-item
+	}
+	
+	gi $expectedAppPoolPath
 }
 
 
-function CreateIISSite($appName, $address = "*", $host, $port, $appPoolName, $localPath, $protocol = "http") {
+function CreateIISSite($appName, $address = "*", $hostname, $port, $appPoolName, $localPath, $protocol = "http") {
 
     $appPath = "iis:\sites\$appName";
         
-    $site = new-item $appPath -bindings @{protocol=$protocol;bindingInformation=$address + ":" + $port + ":" + $host} -physicalPath $localPath 
+    $site = new-item $appPath -bindings @{protocol=$protocol;bindingInformation=$address + ":" + $port + ":" + $hostname} -physicalPath $localPath 
 
     Set-ItemProperty $site.PSPath -name applicationPool -value $appPoolName
 }
