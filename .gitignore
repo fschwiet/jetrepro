@@ -1,0 +1,17 @@
+bin/
+obj/
+obj.build/
+build/
+build_*/
+package/
+_ReSharper.*
+*.ReSharper.user
+*.resharper.user
+*.csproj.user
+*.ncb
+*.aps
+*.suo
+*.sln.cache
+*.InstallLog
+.backup/
+lib/NUnit-2.5.9.10348/net-2.0/addins
