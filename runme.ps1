@@ -1,6 +1,7 @@
 
 . .\utilities.ps1
 
+.\cleanup.ps1
 
 VerifyIISWebAdministrationIsInstalled
 
